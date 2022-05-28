@@ -12,25 +12,25 @@
                 <p:commandButton value="Novo" actionListener="#{controlePessoa.novo()}" icon="pi pi-plus" update="formEdicao" process="@this" oncomplete="PF('dlg').show();"/>
                 <p:dataTable value="#{controlePessoa.dao.listaObjetos}" var="obj" id="listagem">
                     <p:column headerText="ID">
-                        <p:outputLabel value="#{obj.id}"/>
+                        <p:outputLabel title="#{obj.id}" value="#{obj.id}"/>
                     </p:column>
                     <p:column headerText="Nome">
-                        <p:outputLabel value="#{obj.nome}"/>
+                        <p:outputLabel title="#{obj.nome}" value="#{obj.nome}"/>
                     </p:column>
                     <p:column headerText="CPF">
-                        <p:outputLabel value="#{obj.cpf}"/>
+                        <p:outputLabel title="#{obj.cpf}" value="#{obj.cpf}"/>
                     </p:column>
                     <p:column headerText="Email">
-                        <p:outputLabel value="#{obj.email}"/>
+                        <p:outputLabel title="#{obj.email}" value="#{obj.email}"/>
                     </p:column>
-                    <p:column headerText="telefone">
-                        <p:outputLabel value="#{obj.telefone}"/>
+                    <p:column headerText="Telefone">
+                        <p:outputLabel title="#{obj.telefone}" value="#{obj.telefone}"/>
                     </p:column>
                     <p:column headerText="Ações">
-                        <div align="center">
+                        <div>
                             <p:commandButton actionListener="#{controlePessoa.alterar(obj.id)}" icon="pi pi-pencil" title="Editar" update="formEdicao" process="@this" 
                                              oncomplete="PF('dlg').show();"/>
-                            <p:commandButton actionListener="#{controlePessoa.excluir(obj.id)}" icon="pi pi-trash" title="Editar" update="@form" process="@this" 
+                            <p:commandButton actionListener="#{controlePessoa.excluir(obj.id)}" icon="pi pi-trash" title="Excluir" update="@form" process="@this" 
                                              onclick="if (!confirm('Confirma a exclusão')) return false"/>
                         </div>
                     </p:column>
@@ -38,6 +38,7 @@
             </h:form>
             <p:dialog header="Edição" widgetVar="dlg" resizable="false" modal="true" width="50%" height="100%">
                 <h:form id="formEdicao" prependId="false">
+                    <p:growl id="growl"/>
                     <div align="center">
                         <p:panelGrid columns="2">
                             <p:outputLabel value="ID"/>
@@ -53,7 +54,7 @@
                             <p:inputText id="txtEmail" value="#{controlePessoa.objeto.email}" size="50" maxlength="50" placeholder="Obrigatório"/>
                             
                             <p:outputLabel value="Telefone" for="txtTelefone"/>
-                            <p:inputText id="txtTelefone" value="#{controlePessoa.objeto.telefone}" size="11" maxlength="11" placeholder="Obrigatório"/>
+                            <p:inputText id="txtTelefone" value="#{controlePessoa.objeto.telefone}" size="15" maxlength="15" placeholder="Obrigatório"/>
                         </p:panelGrid>
                         <p:panel>
                             <div align="center">

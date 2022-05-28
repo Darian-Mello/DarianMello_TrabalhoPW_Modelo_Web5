@@ -16,7 +16,10 @@
                 <p:submenu label="Cadastros">
                     <p:column>
                         <p:submenu label="Básicos">
-                            <p:menuitem action="#{controlePessoa.listar()}" value="Manutenção de Pessoas" ajax="false"/>
+                            <p:menuitem action="#{controleAeroporto.listar()}" value="Aeroportos" ajax="false"/>
+                            <p:menuitem action="#{controleCidade.listar()}" value="Cidades" ajax="false"/>
+                            <p:menuitem action="#{controleClasse.listar()}" value="Classes" ajax="false"/>
+                            <p:menuitem action="#{controlePessoa.listar()}" value="Pessoas" ajax="false"/>
                         </p:submenu>
                     </p:column>
                 </p:submenu>
