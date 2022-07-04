@@ -22,6 +22,11 @@
                             <p:menuitem action="#{controlePessoa.listar()}" value="Pessoas" ajax="false"/>
                         </p:submenu>
                     </p:column>
+                    <p:column>
+                        <p:submenu label="Voos">
+                            <p:menuitem action="#{controleVoo.listar()}" value="Voos" ajax="false"/>
+                        </p:submenu>
+                    </p:column>
                 </p:submenu>
             </p:megaMenu>
         </h:form>

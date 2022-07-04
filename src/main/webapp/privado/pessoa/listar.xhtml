@@ -79,7 +79,7 @@
                             <p:inputText id="txtNome" value="#{controlePessoa.objeto.nome}" size="50" maxlength="50" placeholder="Obrigatório"/>
                             
                             <p:outputLabel value="CPF" for="txtCPF"/>
-                            <p:inputText id="txtCPF" value="#{controlePessoa.objeto.cpf}" size="14" maxlength="14" placeholder="Obrigatório"/>
+                            <p:inputMask id="txtCPF" value="#{controlePessoa.objeto.cpf}" mask="999.999.999-99" size="14" maxlength="14" placeholder="Obrigatório"/>
                             
                             <p:outputLabel value="Email" for="txtEmail"/>
                             <p:inputText id="txtEmail" value="#{controlePessoa.objeto.email}" size="50" maxlength="50" placeholder="Obrigatório"/>
