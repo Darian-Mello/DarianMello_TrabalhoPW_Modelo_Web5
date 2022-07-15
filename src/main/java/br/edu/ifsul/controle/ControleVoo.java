@@ -4,7 +4,9 @@
  */
 package br.edu.ifsul.controle;
 
+import br.edu.ifsul.dao.AeroportoDAO;
 import br.edu.ifsul.dao.VooDAO;
+import br.edu.ifsul.modelo.Aeroporto;
 import br.edu.ifsul.modelo.Voo;
 import br.edu.ifsul.modelo.VooAgendado;
 import br.edu.ifsul.util.Util;
@@ -29,9 +31,27 @@ public class ControleVoo implements Serializable {
     private Boolean novoVooAgendado;
     
     private int abaAtiva;
+    
+    @EJB
+    private AeroportoDAO<Aeroporto> daoAeroporto;
+    private Aeroporto aeroporto;
 
     public ControleVoo() {
 
+    }
+    
+    public void removerAeroporto(Aeroporto obj) {
+        objeto.getAeroportos().remove(obj);
+        Util.mensagemInformacao("Permissão removido com sucesso!");
+    }
+    
+    public void adicionarAeroporto() {
+        if (!objeto.getAeroportos().contains(aeroporto)) {
+            objeto.getAeroportos().add(aeroporto);
+            Util.mensagemInformacao("Aeroporto adicionado com sucesso!");
+        } else {
+            Util.mensagemErro("Voo já possui este aeroporto");
+        }
     }
 
     public void novoVooAgendado () {
@@ -137,5 +157,20 @@ public class ControleVoo implements Serializable {
         this.abaAtiva = abaAtiva;
     }
     
+    public AeroportoDAO<Aeroporto> getDaoAeroporto() {
+        return daoAeroporto;
+    }
+    
+    public void setDaoAeroporto(AeroportoDAO<Aeroporto> daoAeroporto) {
+        this.daoAeroporto = daoAeroporto;
+    }
+    
+    public Aeroporto getAeroporto() {
+        return aeroporto;
+    }
+    
+    public void setAeroporto(Aeroporto aeroporto) {
+        this.aeroporto = aeroporto;
+    }
 
 }

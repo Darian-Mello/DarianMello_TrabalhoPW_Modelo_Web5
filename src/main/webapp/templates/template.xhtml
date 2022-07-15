@@ -25,6 +25,15 @@
                     <p:column>
                         <p:submenu label="Voos">
                             <p:menuitem action="#{controleVoo.listar()}" value="Voos" ajax="false"/>
+                            <p:menuitem action="#{controleVooAgendado.listar()}" value="Voos Agendados" ajax="false"/>
+                            <p:menuitem action="#{controlePassagem.listar()}" value="Passagens" ajax="false"/>
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+                <p:submenu label="Relatórios">
+                    <p:column>
+                        <p:submenu label="Básicos">
+                            <p:menuitem action="#{controleCidade.imprimeCidades()}" icon="pi pi-print" value="Cidades" ajax="false" target="_blank"/>
                         </p:submenu>
                     </p:column>
                 </p:submenu>

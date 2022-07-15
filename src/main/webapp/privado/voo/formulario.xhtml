@@ -61,6 +61,36 @@
                         </p:column>
                     </p:dataTable>
                 </p:tab>
+                <p:tab title="Aeroportos">
+                    <p:dataTable value="#{controleVoo.objeto.aeroportos}"
+                                 var="aer" id="listaAeroportos">
+                        <f:facet name="header">
+                            <p:panelGrid columns="3">
+                                <p:outputLabel value="Aeroportos"/>
+                                <p:selectOneMenu value="#{controleVoo.aeroporto}" id="selectAeroporto">
+                                    <f:converter binding="#{converterAeroporto}"/>
+                                    <f:selectItem noSelectionOption="true" itemLabel="Selecione um registro"/>
+                                    <f:selectItems value="#{controleVoo.daoAeroporto.listaTodos}" var="a" itemLabel="#{a.nome}"/>                                    
+                                </p:selectOneMenu>
+                                <p:commandButton value="Adicionar" actionListener="#{controleVoo.adicionarAeroporto()}" update="listaAeroportos growl" process="@this selectAeroporto"
+                                                 icon="pi pi-plus"/>
+                            </p:panelGrid>
+                        </f:facet>
+                        <p:column headerText="Nome">
+                            <p:outputLabel value="#{aer.nome}"/>
+                        </p:column>
+                        <p:column headerText="Operação noturna">
+                            <p:outputLabel value="#{aer.operacaoNoturna == true ? 'Sim' : 'Não'}"/>
+                        </p:column>  
+                        <p:column headerText="Ações">
+                            <div align="center">
+                                <p:commandButton 
+                                    actionListener="#{controleVoo.removerAeroporto(aer)}" process="@this" update="listaAeroportos growl" icon="pi pi-trash"
+                                    title="Remover aeroporto"/>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>    
             </p:tabView>
             <p:panel>
                 <div align="center">
