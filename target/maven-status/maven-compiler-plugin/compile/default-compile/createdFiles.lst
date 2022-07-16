@@ -17,9 +17,11 @@ br\edu\ifsul\dao\Ordem.class
 br\edu\ifsul\dao\ClasseDAO.class
 br\edu\ifsul\converters\ConverterAeroporto.class
 br\edu\ifsul\util\UtilRelatorios.class
+br\edu\ifsul\dao\UsuarioDAO.class
 formulario.class
 br\edu\ifsul\dao\VooAgendadoDAO.class
 br\edu\ifsul\converters\ConverterVoo.class
+br\edu\ifsul\controle\ControleLogin.class
 br\edu\ifsul\dao\AeroportoDAO.class
 br\edu\ifsul\dao\PessoaDAO.class
 br\edu\ifsul\controle\ControleCidade.class

@@ -13,7 +13,7 @@
         <h:form id="formMenu" prependId="false">
             <p:megaMenu>
                 <p:menuitem value="Inicio" url="#{facesContext.externalContext.requestContextPath}/index.xhtml" icon="pi pi-home"/>
-                <p:submenu label="Cadastros">
+                <p:submenu label="Cadastros" rendered="#{controleLogin.usuarioAutenticado != null}">
                     <p:column>
                         <p:submenu label="Básicos">
                             <p:menuitem action="#{controleAeroporto.listar()}" value="Aeroportos" ajax="false"/>
@@ -30,10 +30,20 @@
                         </p:submenu>
                     </p:column>
                 </p:submenu>
-                <p:submenu label="Relatórios">
+                <p:submenu label="Relatórios" rendered="#{controleLogin.usuarioAutenticado != null}">
                     <p:column>
                         <p:submenu label="Básicos">
                             <p:menuitem action="#{controleCidade.imprimeCidades()}" icon="pi pi-print" value="Cidades" ajax="false" target="_blank"/>
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+                <p:submenu label="Usuário #{controleLogin.usuarioAutenticado != null ? controleLogin.usuarioAutenticado.nomeUsuario : ''}">
+                    <p:column>
+                        <p:submenu label="Logout" rendered="#{controleLogin.usuarioAutenticado != null}">
+                            <p:menuitem value="Efetuar Logout" action="#{controleLogin.efetuarLogout()}" ajax="false"/> 
+                        </p:submenu>
+                        <p:submenu label="Login" rendered="#{controleLogin.usuarioAutenticado == null}">
+                            <p:menuitem value="Ir para página de login" action="#{controleLogin.irTelaLogin()}" ajax="false"/>         
                         </p:submenu>
                     </p:column>
                 </p:submenu>
