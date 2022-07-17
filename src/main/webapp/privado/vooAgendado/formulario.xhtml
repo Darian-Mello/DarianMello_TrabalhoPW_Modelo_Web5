@@ -16,18 +16,18 @@
                             <p:inputText value="#{controleVooAgendado.objeto.id}" size="5" readonly="true"/>
 
                             <p:outputLabel value="Aeronave" for="txtAeronave"/>
-                            <p:inputText id="txtAeronave" value="#{controleVooAgendado.objeto.aeronave}" size="40" maxlength="40" placeholder="Obrigatório"/>
+                            <p:inputText id="txtAeronave" value="#{controleVooAgendado.objeto.aeronave}" size="40" maxlength="40" placeholder="Obrigatório" disabled="#{p:ifGranted('ADMINISTRADOR') ? 'false' : 'true'}"/>
 
                             <p:outputLabel value="Total de Passageiros" for="txtTotalPassageiros"/>
-                            <p:inputNumber id="txtTotalPassageiros" value="#{controleVooAgendado.objeto.totalPassageiros}" thousandSeparator="" decimalPlaces="0" size="6"/>
+                            <p:inputNumber id="txtTotalPassageiros" value="#{controleVooAgendado.objeto.totalPassageiros}" thousandSeparator="" decimalPlaces="0" size="6" disabled="#{p:ifGranted('ADMINISTRADOR') ? 'false' : 'true'}"/>
 
                             <p:outputLabel value="Data" for="txtData"/>
-                            <p:calendar id="txtData" value="#{controleVooAgendado.objeto.data}" mask="true" pattern="dd/MM/yyyy" navigator="true" size="10">
+                            <p:calendar id="txtData" value="#{controleVooAgendado.objeto.data}" mask="true" pattern="dd/MM/yyyy" navigator="true" size="10" disabled="#{p:ifGranted('ADMINISTRADOR') ? 'false' : 'true'}">
                                 <f:converter converterId="converterCalendar"/>
                             </p:calendar>
                             
                             <p:outputLabel value="Voo" for="selectVoo"/>
-                            <p:selectOneMenu value="#{controleVooAgendado.objeto.voo}" id="selectVoo" filter="true" filterMatchMode="startsWith">
+                            <p:selectOneMenu value="#{controleVooAgendado.objeto.voo}" id="selectVoo" filter="true" filterMatchMode="startsWith" disabled="#{p:ifGranted('ADMINISTRADOR') ? 'false' : 'true'}">
                                 <f:converter binding="#{converterVoo}"/>
                                 <f:selectItem itemLabel="Selecione um registro" noSelectionOption="true"/>
                                 <f:selectItems value="#{controleVooAgendado.daoVoo.listaObjetos}" var="voo" itemLabel="#{voo.descricao}" itemLabelEscaped="false"/>
@@ -38,7 +38,7 @@
                 <p:tab title="Passagens">
                     <p:dataTable value="#{controleVooAgendado.objeto.passagens}" var="passagem" rowIndexVar="idxPassagem" id="listaPassagem">
                         <f:facet name="header">
-                            <p:commandButton value="Novo" actionListener="#{controleVooAgendado.novaPassagem()}" icon="pi pi-plus" update=":formPassagem" process="@this" oncomplete="PF('dlgPassagem').show();"/>
+                            <p:commandButton rendered="#{p:ifGranted('ADMINISTRADOR')}" value="Novo" actionListener="#{controleVooAgendado.novaPassagem()}" icon="pi pi-plus" update=":formPassagem" process="@this" oncomplete="PF('dlgPassagem').show();"/>
                         </f:facet>
                         <p:column headerText="ID">
                             <p:outputLabel title="#{passagem.id}" value="#{passagem.id}"/>
@@ -61,9 +61,9 @@
                         <p:column headerText="Ações">
                             <div>
                                 <p:commandButton actionListener="#{controleVooAgendado.alterarPassagem(idxPassagem)}" icon="pi pi-pencil" title="Editar" update=":formPassagem" process="@this" 
-                                                 oncomplete="PF('dlgPassagem').show();"/>
+                                                 oncomplete="PF('dlgPassagem').show();" rendered="#{p:ifGranted('ADMINISTRADOR')}"/>
                                 <p:commandButton actionListener="#{controleVooAgendado.removerPassagem(idxPassagem)}" icon="pi pi-trash" title="Excluir" update="tab:listaPassagem growl" process="@this" 
-                                                 onclick="if (!confirm('Confirma a exclusão')) return false"/>
+                                                 onclick="if (!confirm('Confirma a exclusão')) return false" rendered="#{p:ifGranted('ADMINISTRADOR')}"/>
                             </div>
                         </p:column>
                     </p:dataTable>
@@ -72,7 +72,7 @@
             <p:panel>
                 <div align="center">
                     <p:commandButton value="Salvar" icon="pi pi-save" actionListener="#{controleVooAgendado.salvar()}" update="formEdicao formListagem" 
-                                     oncomplete="if (!args.validationFailed){PF('dlg').hide();}"/>
+                                     oncomplete="if (!args.validationFailed){PF('dlg').hide();}" rendered="#{p:ifGranted('ADMINISTRADOR')}"/>
                 </div>
             </p:panel>
         </h:form>

@@ -16,26 +16,27 @@
                             <p:inputText value="#{controleVoo.objeto.id}" size="5" readonly="true"/>
 
                             <p:outputLabel value="Tempo estimado (horas)" for="txtTempoEstimado"/>
-                            <p:inputNumber id="txtTempoEstimado" value="#{controleVoo.objeto.tempoEstimado}" thousandSeparator="" decimalSeparator="." decimalPlaces="3" size="6"/>
+                            <p:inputNumber id="txtTempoEstimado" value="#{controleVoo.objeto.tempoEstimado}" thousandSeparator="" decimalSeparator="." decimalPlaces="3" size="6"
+                                           disabled="#{p:ifGranted('ADMINISTRADOR') ? 'false' : 'true'}"/>
 
                             <p:outputLabel value="Ativo" for="radioAtivo"/>
-                            <p:selectOneRadio required="true" id="radioAtivo" value="#{controleVoo.objeto.ativo}" >
+                            <p:selectOneRadio required="true" id="radioAtivo" value="#{controleVoo.objeto.ativo}" disabled="#{p:ifGranted('ADMINISTRADOR') ? 'false' : 'true'}">
                                 <f:selectItem itemValue="true" itemLabel="Sim"/>
                                 <f:selectItem itemValue="false" itemLabel="Não"/>
                             </p:selectOneRadio>
 
                             <p:outputLabel value="Periodicidade" for="txtPeriodicidade"/>
-                            <p:inputText id="txtPeriodicidade" value="#{controleVoo.objeto.periodicidade}" size="50" maxlength="50" placeholder="Obrigatório"/>
+                            <p:inputText id="txtPeriodicidade" value="#{controleVoo.objeto.periodicidade}" size="50" maxlength="50" placeholder="Obrigatório" disabled="#{p:ifGranted('ADMINISTRADOR') ? 'false' : 'true'}"/>
                         </p:panelGrid>
                     </div>
                 </p:tab>
                 <p:tab title="Descrição">
-                    <p:textEditor value="#{controleVoo.objeto.descricao}" secure="false" height="200"/>
+                    <p:textEditor value="#{controleVoo.objeto.descricao}" secure="false" height="200" disabled="#{p:ifGranted('ADMINISTRADOR') ? 'false' : 'true'}"/>
                 </p:tab>
                 <p:tab title="Voos Agendados">
                     <p:dataTable value="#{controleVoo.objeto.vooAgendado}" var="vooAgendado" rowIndexVar="idxVooAgendado" id="listaVooAgendado">
                         <f:facet name="header">
-                            <p:commandButton value="Novo" actionListener="#{controleVoo.novoVooAgendado()}" icon="pi pi-plus" update=":formVooAgendado" process="@this" oncomplete="PF('dlgVooAgendado').show();"/>
+                            <p:commandButton rendered="#{p:ifGranted('ADMINISTRADOR')}" value="Novo" actionListener="#{controleVoo.novoVooAgendado()}" icon="pi pi-plus" update=":formVooAgendado" process="@this" oncomplete="PF('dlgVooAgendado').show();"/>
                         </f:facet>
                         <p:column headerText="ID">
                             <p:outputLabel title="#{vooAgendado.id}" value="#{vooAgendado.id}"/>
@@ -54,9 +55,9 @@
                         <p:column headerText="Ações">
                             <div>
                                 <p:commandButton actionListener="#{controleVoo.alterarVooAgendado(idxVooAgendado)}" icon="pi pi-pencil" title="Editar" update=":formVooAgendado" process="@this" 
-                                                 oncomplete="PF('dlgVooAgendado').show();"/>
+                                                 oncomplete="PF('dlgVooAgendado').show();" rendered="#{p:ifGranted('ADMINISTRADOR')}"/>
                                 <p:commandButton actionListener="#{controleVoo.removerVooAgendado(idxVooAgendado)}" icon="pi pi-trash" title="Excluir" update="tab:listaVooAgendado growl" process="@this" 
-                                                 onclick="if (!confirm('Confirma a exclusão')) return false"/>
+                                                 onclick="if (!confirm('Confirma a exclusão')) return false" rendered="#{p:ifGranted('ADMINISTRADOR')}"/>
                             </div>
                         </p:column>
                     </p:dataTable>
@@ -73,7 +74,7 @@
                                     <f:selectItems value="#{controleVoo.daoAeroporto.listaTodos}" var="a" itemLabel="#{a.nome}"/>                                    
                                 </p:selectOneMenu>
                                 <p:commandButton value="Adicionar" actionListener="#{controleVoo.adicionarAeroporto()}" update="listaAeroportos growl" process="@this selectAeroporto"
-                                                 icon="pi pi-plus"/>
+                                                 icon="pi pi-plus" rendered="#{p:ifGranted('ADMINISTRADOR')}"/>
                             </p:panelGrid>
                         </f:facet>
                         <p:column headerText="Nome">
@@ -86,7 +87,7 @@
                             <div align="center">
                                 <p:commandButton 
                                     actionListener="#{controleVoo.removerAeroporto(aer)}" process="@this" update="listaAeroportos growl" icon="pi pi-trash"
-                                    title="Remover aeroporto"/>
+                                    title="Remover aeroporto" rendered="#{p:ifGranted('ADMINISTRADOR')}"/>
                             </div>
                         </p:column>
                     </p:dataTable>
@@ -95,7 +96,7 @@
             <p:panel>
                 <div align="center">
                     <p:commandButton value="Salvar" icon="pi pi-save" actionListener="#{controleVoo.salvar()}" update="formEdicao formListagem" 
-                                     oncomplete="if (!args.validationFailed){PF('dlg').hide();}"/>
+                                     oncomplete="if (!args.validationFailed){PF('dlg').hide();}" rendered="#{p:ifGranted('ADMINISTRADOR')}"/>
                 </div>
             </p:panel>
         </h:form>

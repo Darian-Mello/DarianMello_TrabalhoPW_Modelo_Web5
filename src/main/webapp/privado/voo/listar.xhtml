@@ -10,7 +10,7 @@
         <ui:define name="conteudo">
             <h:form id="formListagem" prependId="false">
                 <p:growl/>
-                <p:commandButton value="Novo" actionListener="#{controleVoo.novo()}" icon="pi pi-plus" update="formEdicao" process="@this" oncomplete="PF('dlg').show();"/>
+                <p:commandButton rendered="#{p:ifGranted('ADMINISTRADOR')}" value="Novo" actionListener="#{controleVoo.novo()}" icon="pi pi-plus" update="formEdicao" process="@this" oncomplete="PF('dlg').show();"/>
                 <div align="center">
                     <p:panelGrid columns="11">
                         <p:outputLabel value="Ordem: "/>
@@ -62,7 +62,7 @@
                             <p:commandButton actionListener="#{controleVoo.alterar(obj.id)}" icon="pi pi-pencil" title="Editar" update="formEdicao" process="@this" 
                                              oncomplete="PF('dlg').show();"/>
                             <p:commandButton actionListener="#{controleVoo.excluir(obj.id)}" icon="pi pi-trash" title="Excluir" update="@form" process="@this" 
-                                             onclick="if (!confirm('Confirma a exclusão')) return false"/>
+                                             onclick="if (!confirm('Confirma a exclusão')) return false" rendered="#{p:ifGranted('ADMINISTRADOR')}"/>
                         </div>
                     </p:column>
                 </p:dataTable>
