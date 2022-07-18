@@ -72,7 +72,7 @@ public class DAOGenerico<TIPO> implements Serializable {
                     where += " where " + ordemAtual.getAtributo() + " = '" + filtro + "' ";
                     break;
                 case "like" :
-                    where += " where upper(" + ordemAtual.getAtributo() + ") like '" + filtro.toUpperCase() + "%' ";
+                    where += " where upper(" + ordemAtual.getAtributo() + ") like '%" + filtro.toUpperCase() + "%' ";
                     break;
             } 
         }
